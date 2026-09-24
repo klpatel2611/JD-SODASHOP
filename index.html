@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JD Soda Shop Surat - Craft Fizzes & Desi Chaska Sodas</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cyan: '#00F0FF',
+                            pink: '#FF2E93',
+                            yellow: '#FFD600',
+                            purple: '#8A2BE2',
+                            dark: '#080C14',
+                            card: 'rgba(23, 31, 50, 0.7)'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                        'spin-slow': 'spin 12s linear infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-15px) rotate(3deg)' }
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.6', filter: 'drop-shadow(0 0 15px rgba(0, 240, 255, 0.6))' },
+                            '50%': { opacity: '1', filter: 'drop-shadow(0 0 25px rgba(255, 46, 147, 0.8))' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #080C14;
+            color: #F3F4F6;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: rgba(18, 25, 40, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-card {
+            background: rgba(26, 36, 56, 0.55);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 240, 255, 0.35);
+            box-shadow: 0 12px 30px -10px rgba(0, 240, 255, 0.25);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #00F0FF 0%, #FF2E93 50%, #FFD600 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Animated Bubble Background */
+        .bubble-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -50px;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), rgba(0, 240, 255, 0.15));
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: rise 10s infinite ease-in;
+        }
+
+        @keyframes rise {
+            0% {
+                bottom: -50px;
+                transform: translateX(0) scale(0.5);
+                opacity: 0;
+            }
+            20% { opacity: 0.7; }
+            100% {
+                bottom: 105%;
+                transform: translateX(100px) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080C14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1F293D;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00F0FF;
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <div class="bubble-container" id="bubbleContainer"></div>
+
+    <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-cyan via-brand-pink to-brand-yellow p-[2px] shadow-lg shadow-brand-cyan/20 group-hover:scale-105 transition-transform">
+                    <div class="w-full h-full bg-brand-dark rounded-[14px] flex items-center justify-center">
+                        <span class="text-2xl group-hover:rotate-12 transition-transform">🍹</span>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-heading font-black text-2xl tracking-wider text-white flex items-center">
+                        JD <span class="text-brand-cyan ml-1">SODA</span>
+                        <span class="text-xs text-brand-yellow ml-1 font-extrabold bg-brand-yellow/10 px-1.5 py-0.5 rounded border border-brand-yellow/30">SURAT</span>
+                    </span>
+                    <span class="text-[10px] tracking-widest text-gray-400 uppercase font-semibold">Desi Chaska & Craft Fizzes</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-8 font-medium text-sm">
+                <a href="#hero" class="text-gray-300 hover:text-brand-cyan transition-colors">Home</a>
+                <a href="#menu" class="text-gray-300 hover:text-brand-cyan transition-colors">Surat Special Menu</a>
+                <a href="#builder" class="text-gray-300 hover:text-brand-pink transition-colors flex items-center gap-1">
+                    <span class="bg-brand-pink/20 text-brand-pink px-2 py-0.5 rounded-full text-xs font-bold border border-brand-pink/30">DIY</span>
+                    <span>Desi Soda Mixer</span>
+                </a>
+                <a href="#loyalty" class="text-gray-300 hover:text-brand-yellow transition-colors">Rewards</a>
+                <a href="#location" class="text-gray-300 hover:text-brand-cyan transition-colors">Vesu Store</a>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center space-x-4">
+                <!-- Cart Button -->
+                <button onclick="toggleCart()" class="relative p-3 rounded-xl bg-white/5 border border-white/10 hover:border-brand-cyan/50 hover:bg-brand-cyan/10 text-white transition-all group">
+                    <i class="fa-solid fa-basket-shopping text-lg group-hover:scale-110 transition-transform"></i>
+                    <span id="cartBadge" class="absolute -top-2 -right-2 bg-gradient-to-r from-brand-pink to-brand-yellow text-brand-dark text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center opacity-0 transition-opacity">0</span>
+                </button>
+
+                <!-- CTA Button -->
+                <a href="#menu" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-heading font-bold text-sm bg-gradient-to-r from-brand-cyan to-blue-600 text-brand-dark hover:shadow-lg hover:shadow-brand-cyan/30 hover:scale-105 transition-all">
+                    Order Soda
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-gray-400 hover:text-white">
+                    <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden glass-panel border-t border-white/10 px-6 py-4 space-y-3">
+            <a href="#hero" onclick="toggleMobileMenu()" class="block py-2 text-gray-300 hover:text-brand-cyan font-medium">Home</a>
+            <a href="#menu" onclick="toggleMobileMenu()" class="block py-2 text-gray-300 hover:text-brand-cyan font-medium">Surat Special Menu</a>
+            <a href="#builder" onclick="toggleMobileMenu()" class="block py-2 text-brand-pink font-semibold">DIY Desi Mixer</a>
+            <a href="#loyalty" onclick="toggleMobileMenu()" class="block py-2 text-gray-300 hover:text-brand-yellow font-medium">Rewards</a>
+            <a href="#location" onclick="toggleMobileMenu()" class="block py-2 text-gray-300 hover:text-brand-cyan font-medium">Vesu Store</a>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <section id="hero" class="relative min-h-[90vh] flex items-center justify-center py-16 overflow-hidden">
+            <!-- Glowing background Orbs -->
+            <div class="absolute top-1/4 left-10 w-72 h-72 bg-brand-cyan/20 rounded-full blur-[120px] pointer-events-none"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-brand-pink/20 rounded-full blur-[150px] pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <!-- Left Hero Content -->
+                    <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-brand-cyan/30 text-brand-cyan text-xs sm:text-sm font-semibold tracking-wide">
+                            <span class="w-2 h-2 rounded-full bg-brand-cyan animate-ping"></span>
+                            <span>📍 Now Open at VIP Road, Vesu, Surat • Fresh Soda Shots!</span>
+                        </div>
+
+                        <h1 class="font-heading text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none">
+                            SURAT'S FAVORITE <br/>
+                            <span class="text-gradient">DESI FIZZ & SODA</span>
+                        </h1>
+
+                        <p class="text-gray-300 text-lg sm:text-xl max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                            Craving spicy <strong class="text-white">Jaljeera Soda</strong>, tang of <strong class="text-white">Kala Khatta</strong>, or chilled <strong class="text-white">Kacha Aam Fizz</strong>? Step into <strong class="text-white">JD Soda Shop Surat</strong> for the ultimate popping fizz explosion!
+                        </p>
+
+                        <!-- CTA Group -->
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                            <a href="#menu" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-brand-cyan via-brand-pink to-brand-yellow text-brand-dark font-heading font-black text-lg hover:shadow-xl hover:shadow-brand-pink/20 hover:scale-105 transition-all text-center">
+                                <i class="fa-solid fa-whiskey-glass mr-2"></i> Explore Desi Menu
+                            </a>
+                            <a href="#builder" class="w-full sm:w-auto px-8 py-4 rounded-2xl glass-card border border-white/20 text-white font-heading font-bold text-lg hover:bg-white/10 hover:border-brand-pink transition-all text-center flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-wand-magic-sparkles text-brand-pink"></i> Build Custom Masala Soda
+                            </a>
+                        </div>
+
+                        <!-- Highlights Quick Stats -->
+                        <div class="pt-8 border-t border-white/10 grid grid-cols-3 gap-4 text-center lg:text-left">
+                            <div>
+                                <p class="font-heading text-2xl sm:text-3xl font-black text-brand-cyan">25+</p>
+                                <p class="text-xs text-gray-400 font-medium">Desi Flavors</p>
+                            </div>
+                            <div>
+                                <p class="font-heading text-2xl sm:text-3xl font-black text-brand-pink">₹40 Onwards</p>
+                                <p class="text-xs text-gray-400 font-medium">Pocket Friendly</p>
+                            </div>
+                            <div>
+                                <p class="font-heading text-2xl sm:text-3xl font-black text-brand-yellow">4.9 ★</p>
+                                <p class="text-xs text-gray-400 font-medium">Surat Foodies Choice</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Hero Visual -->
+                    <div class="lg:col-span-5 relative flex justify-center">
+                        <div class="relative w-72 h-72 sm:w-96 sm:h-96">
+                            <!-- Outer Orbit Ring -->
+                            <div class="absolute inset-0 border-2 border-dashed border-brand-cyan/30 rounded-full animate-spin-slow"></div>
+                            
+                            <!-- Hero Soda Image Container -->
+                            <div class="w-full h-full rounded-3xl overflow-hidden glass-card p-4 relative group shadow-2xl shadow-brand-pink/20 animate-float">
+                                <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80" 
+                                     alt="Signature Desi Soda" 
+                                     class="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.src='https://placehold.co/600x600/171F32/00F0FF?text=Surat+Kala+Khatta+Fizz'">
+                                
+                                <!-- Floating Badge on Glass Image -->
+                                <div class="absolute bottom-6 left-6 right-6 p-4 glass-panel rounded-xl border border-white/20 flex items-center justify-between">
+                                    <div>
+                                        <p class="text-xs font-semibold text-brand-cyan uppercase">Surat Bestseller</p>
+                                        <p class="font-heading font-bold text-white text-base">Surti Kala Khatta Masala Fizz</p>
+                                    </div>
+                                    <span class="text-brand-yellow font-black text-lg">₹60</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Banner Offer for Surat -->
+        <section class="py-6 glass-panel my-8 border-y border-white/10 relative z-10 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="p-3 bg-brand-yellow/20 text-brand-yellow rounded-xl font-bold text-xl">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heading font-bold text-white text-lg">Surat Special Opening Offer!</h3>
+                        <p class="text-sm text-gray-300">Use promo code <span class="text-brand-cyan font-mono font-bold bg-white/10 px-2 py-0.5 rounded border border-brand-cyan/40">SURAT10</span> for ₹10 OFF or <span class="text-brand-pink font-mono font-bold bg-white/10 px-2 py-0.5 rounded border border-brand-pink/40">JDSODA</span> for 15% OFF!</p>
+                    </div>
+                </div>
+                <a href="#menu" class="text-xs sm:text-sm font-bold text-brand-yellow hover:underline flex items-center gap-1">
+                    Claim Offer Now <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </section>
+
+        <section id="menu" class="py-16 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center space-y-4 max-w-2xl mx-auto mb-12">
+                    <span class="text-brand-cyan font-bold tracking-widest text-xs uppercase px-3 py-1 rounded-full bg-brand-cyan/10 border border-brand-cyan/20">Authentic Indian Flavors</span>
+                    <h2 class="font-heading text-3xl sm:text-5xl font-black text-white">OUR SPARKLING DESI MENU</h2>
+                    <p class="text-gray-400 text-sm sm:text-base">Handcrafted with black salt, chat masala, roasted cumin & authentic Indian fruit extracts poured ice-cold.</p>
+                </div>
+
+                <!-- Category Filters & Search -->
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
+                    <!-- Filter Tabs -->
+                    <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar" id="categoryFilters">
+                        <button onclick="filterCategory('all')" class="category-btn active px-5 py-2.5 rounded-xl font-medium text-sm transition-all whitespace-nowrap bg-brand-cyan text-brand-dark font-bold">All Sodas</button>
+                        <button onclick="filterCategory('masala')" class="category-btn px-5 py-2.5 rounded-xl font-medium text-sm transition-all whitespace-nowrap glass-card text-gray-300 hover:text-white">Spiced & Masala Sodas</button>
+                        <button onclick="filterCategory('fruit')" class="category-btn px-5 py-2.5 rounded-xl font-medium text-sm transition-all whitespace-nowrap glass-card text-gray-300 hover:text-white">Fruity Treats</button>
+                        <button onclick="filterCategory('classic')" class="category-btn px-5 py-2.5 rounded-xl font-medium text-sm transition-all whitespace-nowrap glass-card text-gray-300 hover:text-white">Classic Fizzy</button>
+                        <button onclick="filterCategory('dessert')" class="category-btn px-5 py-2.5 rounded-xl font-medium text-sm transition-all whitespace-nowrap glass-card text-gray-300 hover:text-white">Dessert & Floats</button>
+                    </div>
+
+                    <!-- Search Input -->
+                    <div class="relative w-full md:w-64">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" id="searchInput" oninput="searchMenu()" placeholder="Search soda (e.g. Jaljeera)..." class="w-full pl-11 pr-4 py-2.5 rounded-xl glass-card border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:border-brand-cyan text-sm">
+                    </div>
+                </div>
+
+                <!-- Soda Menu Grid Container -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="menuGrid">
+                    <!-- JS populated items will render here -->
+                </div>
+            </div>
+        </section>
+
+        <section id="builder" class="py-20 relative z-10 glass-panel border-y border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center space-y-4 max-w-2xl mx-auto mb-12">
+                    <span class="text-brand-pink font-bold tracking-widest text-xs uppercase px-3 py-1 rounded-full bg-brand-pink/10 border border-brand-pink/20">Be The Surat Soda Master</span>
+                    <h2 class="font-heading text-3xl sm:text-5xl font-black text-white">DIY DESI SODA MIXER</h2>
+                    <p class="text-gray-400 text-sm sm:text-base">Mix your favorite fizzy base, desi fruit syrups, black salt & roasted jeera spices to craft your custom drink!</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <!-- Options Selector Form -->
+                    <div class="lg:col-span-8 space-y-8">
+                        <!-- Step 1: Base Soda -->
+                        <div class="glass-card p-6 rounded-2xl border border-white/10 space-y-4">
+                            <h3 class="font-heading font-bold text-lg text-brand-cyan flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-brand-cyan/20 text-brand-cyan text-xs flex items-center justify-center font-black">1</span>
+                                Choose Sparkling Base
+                            </h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="baseOptions">
+                                <!-- Options dynamically rendered -->
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Indian Syrups / Flavors -->
+                        <div class="glass-card p-6 rounded-2xl border border-white/10 space-y-4">
+                            <h3 class="font-heading font-bold text-lg text-brand-pink flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-brand-pink/20 text-brand-pink text-xs flex items-center justify-center font-black">2</span>
+                                Select Indian Syrup Shots (Max 3)
+                            </h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="flavorOptions">
+                                <!-- Flavor shots -->
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Desi Masala & Toppings -->
+                        <div class="glass-card p-6 rounded-2xl border border-white/10 space-y-4">
+                            <h3 class="font-heading font-bold text-lg text-brand-yellow flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-brand-yellow/20 text-brand-yellow text-xs flex items-center justify-center font-black">3</span>
+                                Add Desi Spices & Toppings
+                            </h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="toppingOptions">
+                                <!-- Toppings -->
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Sweetness & Ice Preference -->
+                        <div class="glass-card p-6 rounded-2xl border border-white/10 space-y-4">
+                            <h3 class="font-heading font-bold text-lg text-brand-cyan flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-brand-cyan/20 text-brand-cyan text-xs flex items-center justify-center font-black">4</span>
+                                Customize Chill & Sweetness Level
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-xs text-gray-300 block mb-2 font-semibold">Ice Level</label>
+                                    <select id="iceLevelSelect" onchange="updateCustomSummary()" class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white text-xs focus:outline-none focus:border-brand-cyan">
+                                        <option value="Normal Ice">Normal Chill Ice (Standard)</option>
+                                        <option value="Extra Cold Ice">Extra Cold / Crushed Ice</option>
+                                        <option value="Low Ice">Low Ice</option>
+                                        <option value="No Ice">No Ice</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-300 block mb-2 font-semibold">Sweetness Level</label>
+                                    <select id="sweetnessSelect" onchange="updateCustomSummary()" class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white text-xs focus:outline-none focus:border-brand-cyan">
+                                        <option value="100% Sweetness">100% Regular Sweetness</option>
+                                        <option value="75% Less Sweet">75% Medium Sweet</option>
+                                        <option value="50% Low Sweet">50% Low Sugar</option>
+                                        <option value="Extra Masala Spicy">Extra Masala Twist (Less Sweet)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Drink Live Preview Box -->
+                    <div class="lg:col-span-4 sticky top-28">
+                        <div class="glass-card p-6 rounded-2xl border border-brand-pink/30 space-y-6 text-center">
+                            <h3 class="font-heading font-black text-xl text-white uppercase tracking-wider">Your Custom Potion</h3>
+                            
+                            <!-- Graphic Visualizer Cup -->
+                            <div class="w-32 h-44 mx-auto relative border-4 border-white/30 rounded-b-3xl rounded-t-lg bg-gradient-to-b from-brand-cyan/20 via-brand-pink/20 to-brand-yellow/30 flex flex-col justify-end p-2 overflow-hidden shadow-xl shadow-brand-pink/10">
+                                <div class="w-full bg-brand-cyan/40 rounded-b-2xl transition-all duration-500" id="customLiquid" style="height: 75%;"></div>
+                                <div class="absolute top-2 left-1/2 -translate-x-1/2 text-2xl animate-bounce">🧊</div>
+                            </div>
+
+                            <!-- Summary Details -->
+                            <div class="space-y-2 text-left bg-black/40 p-4 rounded-xl border border-white/5 text-xs">
+                                <p><span class="text-gray-400">Base:</span> <strong id="summaryBase" class="text-white">Club Soda</strong></p>
+                                <p><span class="text-gray-400">Flavors:</span> <strong id="summaryFlavors" class="text-brand-cyan">None selected</strong></p>
+                                <p><span class="text-gray-400">Mix-ins:</span> <strong id="summaryToppings" class="text-brand-yellow">None selected</strong></p>
+                                <p><span class="text-gray-400">Preference:</span> <strong id="summaryPrefs" class="text-brand-pink">Normal Ice • 100% Sweetness</strong></p>
+                            </div>
+
+                            <!-- Price & Add Button -->
+                            <div class="pt-2 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs text-gray-400 block">Calculated Price</span>
+                                    <span class="font-heading font-black text-2xl text-brand-yellow" id="customPrice">₹35</span>
+                                </div>
+                                <button onclick="addCustomDrinkToCart()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-pink to-brand-cyan text-brand-dark font-heading font-bold text-sm hover:scale-105 transition-all shadow-lg">
+                                    <i class="fa-solid fa-cart-plus mr-1"></i> Add Custom Soda
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="loyalty" class="py-20 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass-card p-8 sm:p-12 rounded-3xl border border-brand-yellow/30 relative overflow-hidden bg-gradient-to-r from-brand-dark via-gray-900 to-brand-dark">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-7 space-y-6">
+                            <span class="px-3 py-1 rounded-full bg-brand-yellow/20 text-brand-yellow font-bold text-xs uppercase">JD Surat Stamp Club</span>
+                            <h2 class="font-heading text-3xl sm:text-4xl font-black text-white">BUY 5 SODAS, GET 1 FREE!</h2>
+                            <p class="text-gray-300 text-sm sm:text-base">Join our digital stamp card for Surat soda lovers! Earn 1 stamp on every drink order. Collect 5 stamps and claim any Masala Float or Special Soda absolutely free!</p>
+                            
+                            <!-- Stamp Card Preview -->
+                            <div class="flex items-center gap-3 pt-2">
+                                <div class="w-12 h-12 rounded-full bg-brand-cyan/20 border-2 border-brand-cyan flex items-center justify-center text-brand-cyan font-bold text-xl">✓</div>
+                                <div class="w-12 h-12 rounded-full bg-brand-cyan/20 border-2 border-brand-cyan flex items-center justify-center text-brand-cyan font-bold text-xl">✓</div>
+                                <div class="w-12 h-12 rounded-full bg-brand-cyan/20 border-2 border-brand-cyan flex items-center justify-center text-brand-cyan font-bold text-xl">✓</div>
+                                <div class="w-12 h-12 rounded-full bg-white/5 border-2 border-dashed border-gray-500 flex items-center justify-center text-gray-500 font-bold">4</div>
+                                <div class="w-12 h-12 rounded-full bg-white/5 border-2 border-dashed border-gray-500 flex items-center justify-center text-gray-500 font-bold">5</div>
+                                <div class="w-12 h-12 rounded-full bg-brand-yellow/20 border-2 border-brand-yellow flex items-center justify-center text-brand-yellow text-xl">🎁</div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-5 flex justify-center">
+                            <div class="glass-panel p-6 rounded-2xl border border-white/10 w-full max-w-sm space-y-4">
+                                <h3 class="font-heading font-bold text-white text-lg">Join Digital Rewards</h3>
+                                <input type="tel" id="loyaltyPhone" placeholder="Enter Indian Mobile (+91...)" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-brand-yellow">
+                                <button onclick="claimLoyalty()" class="w-full py-3 rounded-xl bg-brand-yellow text-brand-dark font-heading font-bold text-sm hover:scale-[1.02] transition-transform">
+                                    Claim Surat Digital Stamp Card
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-16 relative z-10 glass-panel border-t border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center space-y-4 max-w-2xl mx-auto mb-12">
+                    <span class="text-brand-cyan font-bold tracking-widest text-xs uppercase px-3 py-1 rounded-full bg-brand-cyan/10 border border-brand-cyan/20">Surat Customer Reviews</span>
+                    <h2 class="font-heading text-3xl sm:text-5xl font-black text-white">WHAT SURTI SODA FANS SAY</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="reviewsContainer">
+                    <!-- Reviews cards populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="location" class="py-20 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Store Info -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <span class="text-brand-cyan font-bold tracking-widest text-xs uppercase px-3 py-1 rounded-full bg-brand-cyan/10 border border-brand-cyan/20">Visit Our Surat Bar</span>
+                        <h2 class="font-heading text-3xl sm:text-5xl font-black text-white">LOCATION & HOURS</h2>
+                        <p class="text-gray-300 text-sm sm:text-base">Stop by our neon soda counter at Vesu, Surat for freshly prepared masala fizzes, ice cream floats, and cool evening hangout vibes.</p>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4 glass-card p-4 rounded-xl border border-white/5">
+                                <div class="p-3 bg-brand-cyan/20 text-brand-cyan rounded-xl">
+                                    <i class="fa-solid fa-location-dot text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">Surat Store Address</h4>
+                                    <p class="text-xs text-gray-300 font-medium">Shop 12, Neon Plaza, Near Someshwara Enclave, VIP Road, Vesu, Surat, Gujarat 395007</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4 glass-card p-4 rounded-xl border border-white/5">
+                                <div class="p-3 bg-brand-pink/20 text-brand-pink rounded-xl">
+                                    <i class="fa-solid fa-clock text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">Opening Hours</h4>
+                                    <p class="text-xs text-gray-400">Monday - Sunday: 11:00 AM - 11:30 PM</p>
+                                    <p class="text-xs text-brand-yellow font-medium">Open 7 Days a Week</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4 glass-card p-4 rounded-xl border border-white/5">
+                                <div class="p-3 bg-brand-yellow/20 text-brand-yellow rounded-xl">
+                                    <i class="fa-solid fa-phone text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">Contact Surat Branch</h4>
+                                    <p class="text-xs text-gray-400">Phone: +91 98765 43210 / (0261) 2234567</p>
+                                    <p class="text-xs text-gray-400">Email: surat@jdsodashop.in</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Map Frame -->
+                    <div class="lg:col-span-7">
+                        <div class="glass-card p-4 rounded-3xl border border-white/10 h-96 relative overflow-hidden">
+                            <!-- Simulated map graphic for Surat -->
+                            <div class="w-full h-full rounded-2xl bg-slate-900 relative flex items-center justify-center overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1200&q=80" alt="Surat Map Location" class="w-full h-full object-cover opacity-30">
+                                
+                                <div class="absolute p-6 glass-panel rounded-2xl border border-brand-cyan/50 text-center space-y-3 max-w-xs animate-bounce">
+                                    <i class="fa-solid fa-store text-3xl text-brand-cyan"></i>
+                                    <h4 class="font-heading font-bold text-white">JD Soda Shop Vesu</h4>
+                                    <p class="text-xs text-gray-300">VIP Road, Vesu, Surat, Gujarat</p>
+                                    <button onclick="alertMessage('Opening Google Maps navigation to VIP Road, Vesu, Surat...')" class="px-4 py-2 bg-brand-cyan text-brand-dark rounded-lg font-bold text-xs hover:bg-white">
+                                        Open Directions
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-panel border-t border-white/10 py-12 relative z-10 text-gray-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div class="space-y-4">
+                    <span class="font-heading font-black text-2xl text-white">JD <span class="text-brand-cyan">SODA</span> <span class="text-xs text-brand-pink">SURAT</span></span>
+                    <p class="text-xs text-gray-400">Serving ice-cold authentic Indian masala sodas, fruit fizzes, and customized popping drinks in Surat, Gujarat.</p>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white mb-3">Quick Links</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#hero" class="hover:text-brand-cyan">Home</a></li>
+                        <li><a href="#menu" class="hover:text-brand-cyan">Surat Soda Menu</a></li>
+                        <li><a href="#builder" class="hover:text-brand-cyan">DIY Masala Mixer</a></li>
+                        <li><a href="#loyalty" class="hover:text-brand-cyan">Rewards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white mb-3">Surat Top Flavors</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li>Jaljeera Masala Soda</li>
+                        <li>Kala Khatta Special</li>
+                        <li>Nimbu Shikanji Fizz</li>
+                        <li>Masala Thums Up</li>
+                        <li>Kacha Aam Mango Soda</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white mb-3">Follow Us</h5>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-brand-cyan hover:border-brand-cyan"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-brand-pink hover:border-brand-pink"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-brand-yellow hover:border-brand-yellow"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-white/5 text-center text-xs text-gray-500">
+                © 2026 JD Soda Shop Surat. All rights reserved. Crafting Desi Refreshment.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Drawer Overlay -->
+    <div id="cartOverlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300" onclick="toggleCart()"></div>
+
+    <!-- Sliding Cart Drawer -->
+    <aside id="cartDrawer" class="fixed top-0 right-0 h-full w-full sm:w-96 glass-panel border-l border-white/10 z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+        <!-- Header -->
+        <div class="p-6 border-b border-white/10 flex items-center justify-between">
+            <h3 class="font-heading font-bold text-xl text-white flex items-center gap-2">
+                <i class="fa-solid fa-basket-shopping text-brand-cyan"></i> Surat Soda Basket
+            </h3>
+            <button onclick="toggleCart()" class="p-2 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cartItems" class="flex-1 overflow-y-auto p-6 space-y-4">
+            <!-- Rendered by JS -->
+        </div>
+
+        <!-- Footer / Checkout Area -->
+        <div class="p-6 border-t border-white/10 space-y-4 bg-black/40">
+            <!-- Promo Code Input -->
+            <div class="flex gap-2">
+                <input type="text" id="promoInput" placeholder="Promo code (SURAT10 / JDSODA)" class="flex-1 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-xs focus:outline-none focus:border-brand-cyan uppercase">
+                <button onclick="applyPromo()" class="px-4 py-2 bg-white/10 hover:bg-brand-cyan hover:text-brand-dark text-white rounded-xl font-bold text-xs transition-colors">Apply</button>
+            </div>
+
+            <!-- Price Breakdown -->
+            <div class="space-y-1 text-xs">
+                <div class="flex justify-between text-gray-400">
+                    <span>Subtotal</span>
+                    <span id="subtotalPrice">₹0</span>
+                </div>
+                <div class="flex justify-between text-brand-cyan hidden" id="discountRow">
+                    <span>Discount</span>
+                    <span id="discountPrice">-₹0</span>
+                </div>
+                <div class="flex justify-between font-heading font-black text-base text-white pt-2 border-t border-white/10">
+                    <span>Total Price</span>
+                    <span id="totalPrice" class="text-brand-yellow">₹0</span>
+                </div>
+            </div>
+
+            <button onclick="openCheckoutModal()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-cyan via-brand-pink to-brand-yellow text-brand-dark font-heading font-black text-sm hover:scale-[1.02] transition-transform shadow-lg">
+                Proceed to Checkout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Simulated Checkout Modal for Surat -->
+    <div id="checkoutModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card max-w-md w-full p-6 sm:p-8 rounded-3xl border border-brand-cyan/40 space-y-6 relative">
+            <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <div class="text-center space-y-2">
+                <span class="text-3xl">🥤</span>
+                <h3 class="font-heading font-black text-2xl text-white">Complete Your Surat Order</h3>
+                <p class="text-xs text-gray-400">Choose pickup at VIP Road Vesu or Express Surat Home Delivery</p>
+            </div>
+
+            <!-- Form -->
+            <form id="checkoutForm" onsubmit="submitOrder(event)" class="space-y-4 text-xs sm:text-sm">
+                <div>
+                    <label class="block text-gray-300 font-medium mb-1">Order Method</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="p-3 glass-card rounded-xl border border-white/10 flex items-center justify-center gap-2 cursor-pointer hover:border-brand-cyan">
+                            <input type="radio" name="orderType" value="pickup" checked class="text-brand-cyan">
+                            <span>Vesu Store Pickup</span>
+                        </label>
+                        <label class="p-3 glass-card rounded-xl border border-white/10 flex items-center justify-center gap-2 cursor-pointer hover:border-brand-cyan">
+                            <input type="radio" name="orderType" value="delivery" class="text-brand-cyan">
+                            <span>Surat Express Delivery</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-gray-300 font-medium mb-1">Full Name</label>
+                    <input type="text" required placeholder="Suraj Patel" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-brand-cyan">
+                </div>
+
+                <div>
+                    <label class="block text-gray-300 font-medium mb-1">Mobile Number (+91)</label>
+                    <input type="tel" required placeholder="98765 43210" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-brand-cyan">
+                </div>
+
+                <div>
+                    <label class="block text-gray-300 font-medium mb-1">Surat Delivery Area / Address</label>
+                    <input type="text" placeholder="e.g., Vesu / VIP Road / Ghod Dod Road / Adajan" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-brand-cyan">
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-pink text-brand-dark font-heading font-black text-sm hover:scale-[1.02] transition-transform">
+                        Confirm & Pay (UPI / Cash / Card)
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification Popup -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 glass-panel border border-brand-cyan/50 px-6 py-3 rounded-2xl text-white font-medium text-sm shadow-2xl opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-2">
+        <i class="fa-solid fa-circle-check text-brand-cyan text-lg"></i>
+        <span id="toastMessage">Item added to cart!</span>
+    </div>
+
+    <script>
+        // Indian Soda Menu Data Array (Surat Special)
+        const menuData = [
+            {
+                id: 1,
+                name: 'Spicy Jaljeera Masala Soda',
+                category: 'masala',
+                price: 50,
+                image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80',
+                description: 'Tangy roasted cumin jaljeera blended with chilled club soda, black salt & mint leaves.',
+                tags: ['Bestseller', 'Digestive']
+            },
+            {
+                id: 2,
+                name: 'Surti Kala Khatta Special',
+                category: 'masala',
+                price: 60,
+                image: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80',
+                description: 'Sweet & sour jamun syrupy fizz topped with chat masala, black salt & fresh lime squeeze.',
+                tags: ['Surat Favorite', 'Spicy-Tangy']
+            },
+            {
+                id: 3,
+                name: 'Masala Thums Up / Cola Blast',
+                category: 'masala',
+                price: 55,
+                image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80',
+                description: 'Strong fizzy cola spiked with crushed roasted jeera, black salt & fresh mint drops.',
+                tags: ['Popular']
+            },
+            {
+                id: 4,
+                name: 'Desi Nimbu Shikanji Fizz',
+                category: 'masala',
+                price: 45,
+                image: 'https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=600&q=80',
+                description: 'Fresh lemon juice, ginger kick, mint, rock salt and sparkling water fizz.',
+                tags: ['Classic', 'Refreshing']
+            },
+            {
+                id: 5,
+                name: 'Green Apple Masala Sparkler',
+                category: 'fruit',
+                price: 65,
+                image: 'https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&w=600&q=80',
+                description: 'Crisp green apple soda infused with spicy chat masala and popping boba.',
+                tags: ['Tangy Apple']
+            },
+            {
+                id: 6,
+                name: 'Royal Rose Sharbat Soda',
+                category: 'fruit',
+                price: 50,
+                image: 'https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=600&q=80',
+                description: 'Cool aromatic gulab syrup poured with chilled soda, sabja seeds & rose petals.',
+                tags: ['Cooling', 'Sweet']
+            },
+            {
+                id: 7,
+                name: 'Kokum Jeera Cooler',
+                category: 'masala',
+                price: 60,
+                image: 'https://images.unsplash.com/photo-1517520287167-4bbf64a00d66?auto=format&fit=crop&w=600&q=80',
+                description: 'Wild Konkan Kokum extract with roasted cumin, pink salt and soda bubble sparkle.',
+                tags: ['Digestive', 'Summer Special']
+            },
+            {
+                id: 8,
+                name: 'Kacha Aam (Raw Mango) Soda',
+                category: 'fruit',
+                price: 55,
+                image: 'https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=600&q=80',
+                description: 'Street-style raw green mango Aam Panna syrup charged with ice-cold carbonation.',
+                tags: ['Street Style', 'Bestseller']
+            },
+            {
+                id: 9,
+                name: 'Jamun Shot Soda Punch',
+                category: 'fruit',
+                price: 70,
+                image: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80',
+                description: 'Rich dark purple jamun pulp, black salt rim glass, and super fizzy soda.',
+                tags: ['Rich Fruit']
+            },
+            {
+                id: 10,
+                name: 'Paan Delight Soda',
+                category: 'classic',
+                price: 65,
+                image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80',
+                description: 'Sweet meetha paan flavor with gulkand essence and ice-cold club soda.',
+                tags: ['After Meal']
+            },
+            {
+                id: 11,
+                name: 'Alphonso Mango Soda Punch',
+                category: 'fruit',
+                price: 60,
+                image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80',
+                description: 'Real Alphonso mango pulp blended with fizzy sprite and mint topping.',
+                tags: ['Kids Choice']
+            },
+            {
+                id: 12,
+                name: 'Royal Kesar Pista Ice Cream Float',
+                category: 'dessert',
+                price: 85,
+                image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80',
+                description: 'Creamy soda topped with a big scoop of Kesar Pista kulfi ice cream & dry fruits.',
+                tags: ['Dessert Float', 'Premium']
+            }
+        ];
+
+        // Custom DIY Builder Indian Options
+        const customBases = [
+            { id: 'clubsoda', name: 'Chilled Club Soda', price: 25 },
+            { id: 'sprite', name: 'Lemon-Lime Seltzer', price: 30 },
+            { id: 'limca', name: 'Limca Fizzy Base', price: 30 },
+            { id: 'cola', name: 'Thums Up / Cola Base', price: 30 }
+        ];
+
+        const customFlavors = [
+            { id: 'kalakhatta', name: 'Kala Khatta Syrup', price: 15 },
+            { id: 'jaljeera', name: 'Spicy Jaljeera', price: 15 },
+            { id: 'kachaaam', name: 'Raw Mango (Kacha Aam)', price: 15 },
+            { id: 'rose', name: 'Royal Gulab Rose', price: 15 },
+            { id: 'paan', name: 'Meetha Paan', price: 20 },
+            { id: 'kokum', name: 'Tangy Kokum', price: 15 }
+        ];
+
+        const customToppings = [
+            { id: 'masala', name: 'Kala Namak & Chat Masala', price: 5 },
+            { id: 'jeera', name: 'Roasted Cumin (Jeera)', price: 5 },
+            { id: 'boondi', name: 'Crispy Salted Boondi', price: 10 },
+            { id: 'sabja', name: 'Cooling Sabja Seeds', price: 10 },
+            { id: 'mint', name: 'Fresh Mint & Lime Slices', price: 10 },
+            { id: 'icecream', name: 'Vanilla Ice Cream Scoop', price: 25 }
+        ];
+
+        // State variables
+        let cart = [];
+        let discountApplied = false;
+        let discountVal = 0;
+        let selectedBase = customBases[0];
+        let selectedFlavors = [];
+        let selectedToppings = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initBubbleBackground();
+            renderMenu('all');
+            renderCustomBuilderOptions();
+            renderReviews();
+            updateCustomSummary();
+        });
+
+        // Background animated bubbles setup
+        function initBubbleBackground() {
+            const container = document.getElementById('bubbleContainer');
+            for (let i = 0; i < 20; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                const size = Math.random() * 25 + 10;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.animationDuration = `${Math.random() * 8 + 6}s`;
+                bubble.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(bubble);
+            }
+        }
+
+        // Render Soda Menu Cards
+        function renderMenu(category, searchTerm = '') {
+            const grid = document.getElementById('menuGrid');
+            grid.innerHTML = '';
+
+            const filtered = menuData.filter(item => {
+                const matchesCat = category === 'all' || item.category === category;
+                const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                                      item.description.toLowerCase().includes(searchTerm.toLowerCase());
+                return matchesCat && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-gray-400">
+                        <i class="fa-solid fa-glass-water-droplet text-4xl mb-3 text-brand-pink"></i>
+                        <p class="font-bold text-lg">No sodas match your search!</p>
+                        <p class="text-xs">Try searching for Jaljeera, Kala Khatta, or Kacha Aam.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'glass-card rounded-2xl p-4 flex flex-col justify-between group border border-white/5';
+                
+                const tagBadges = item.tags.map(t => {
+                    let color = 'bg-brand-cyan/20 text-brand-cyan border-brand-cyan/30';
+                    if (t.includes('Spicy') || t.includes('Street')) color = 'bg-red-500/20 text-red-400 border-red-500/30';
+                    if (t.includes('Favorite') || t.includes('Bestseller')) color = 'bg-brand-yellow/20 text-brand-yellow border-brand-yellow/30';
+                    if (t.includes('Cooling') || t.includes('Digestive')) color = 'bg-green-500/20 text-green-400 border-green-500/30';
+                    return `<span class="text-[10px] uppercase font-extrabold px-2 py-0.5 rounded-full border ${color}">${t}</span>`;
+                }).join(' ');
+
+                card.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="relative h-48 rounded-xl overflow-hidden bg-black/20">
+                            <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/171F32/00F0FF?text=JD+Surat+Soda'">
+                            <div class="absolute top-2 left-2 flex flex-wrap gap-1">
+                                ${tagBadges}
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-heading font-bold text-lg text-white group-hover:text-brand-cyan transition-colors">${item.name}</h3>
+                            <p class="text-xs text-gray-400 mt-1 line-clamp-2">${item.description}</p>
+                        </div>
+                    </div>
+                    <div class="pt-4 mt-4 border-t border-white/5 flex items-center justify-between">
+                        <span class="font-heading font-black text-xl text-brand-yellow">₹${item.price}</span>
+                        <button onclick="addToCart(${item.id})" class="px-4 py-2 rounded-xl bg-gradient-to-r from-brand-cyan to-blue-600 text-brand-dark font-heading font-bold text-xs hover:scale-105 transition-transform flex items-center gap-1 shadow-md">
+                            <i class="fa-solid fa-plus"></i> Add
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Category Filter Click
+        function filterCategory(cat) {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-cyan', 'text-brand-dark', 'font-bold');
+                btn.classList.add('glass-card', 'text-gray-300');
+            });
+            event.target.classList.remove('glass-card', 'text-gray-300');
+            event.target.classList.add('bg-brand-cyan', 'text-brand-dark', 'font-bold');
+
+            const searchVal = document.getElementById('searchInput').value;
+            renderMenu(cat, searchVal);
+        }
+
+        function searchMenu() {
+            const searchVal = document.getElementById('searchInput').value;
+            renderMenu('all', searchVal);
+        }
+
+        // Render Custom Builder UI Options
+        function renderCustomBuilderOptions() {
+            // Render Base Options
+            const baseContainer = document.getElementById('baseOptions');
+            baseContainer.innerHTML = customBases.map((b, idx) => `
+                <button onclick="selectBase('${b.id}')" id="base-${b.id}" class="custom-base-btn p-3 rounded-xl border ${idx === 0 ? 'border-brand-cyan bg-brand-cyan/20 text-white' : 'border-white/10 glass-card text-gray-300'} text-xs font-semibold text-left transition-all">
+                    <p class="font-bold">${b.name}</p>
+                    <p class="text-[10px] text-brand-yellow mt-1">+₹${b.price}</p>
+                </button>
+            `).join('');
+
+            // Render Flavor Options
+            const flavorContainer = document.getElementById('flavorOptions');
+            flavorContainer.innerHTML = customFlavors.map(f => `
+                <button onclick="toggleFlavor('${f.id}')" id="flavor-${f.id}" class="custom-flavor-btn p-3 rounded-xl border border-white/10 glass-card text-gray-300 text-xs font-semibold text-left transition-all">
+                    <p class="font-bold">${f.name}</p>
+                    <p class="text-[10px] text-brand-pink mt-1">+₹${f.price}</p>
+                </button>
+            `).join('');
+
+            // Render Topping Options
+            const toppingContainer = document.getElementById('toppingOptions');
+            toppingContainer.innerHTML = customToppings.map(t => `
+                <button onclick="toggleTopping('${t.id}')" id="topping-${t.id}" class="custom-topping-btn p-3 rounded-xl border border-white/10 glass-card text-gray-300 text-xs font-semibold text-left transition-all">
+                    <p class="font-bold">${t.name}</p>
+                    <p class="text-[10px] text-brand-yellow mt-1">+₹${t.price}</p>
+                </button>
+            `).join('');
+        }
+
+        function selectBase(id) {
+            selectedBase = customBases.find(b => b.id === id);
+            document.querySelectorAll('.custom-base-btn').forEach(btn => {
+                btn.className = 'custom-base-btn p-3 rounded-xl border border-white/10 glass-card text-gray-300 text-xs font-semibold text-left transition-all';
+            });
+            const activeBtn = document.getElementById(`base-${id}`);
+            activeBtn.className = 'custom-base-btn p-3 rounded-xl border border-brand-cyan bg-brand-cyan/20 text-white text-xs font-semibold text-left transition-all';
+            updateCustomSummary();
+        }
+
+        function toggleFlavor(id) {
+            const flavorObj = customFlavors.find(f => f.id === id);
+            const index = selectedFlavors.findIndex(f => f.id === id);
+            const btn = document.getElementById(`flavor-${id}`);
+
+            if (index > -1) {
+                selectedFlavors.splice(index, 1);
+                btn.className = 'custom-flavor-btn p-3 rounded-xl border border-white/10 glass-card text-gray-300 text-xs font-semibold text-left transition-all';
+            } else {
+                if (selectedFlavors.length >= 3) {
+                    alertMessage('Maximum 3 syrup shots allowed per drink!');
+                    return;
+                }
+                selectedFlavors.push(flavorObj);
+                btn.className = 'custom-flavor-btn p-3 rounded-xl border border-brand-pink bg-brand-pink/20 text-white text-xs font-semibold text-left transition-all';
+            }
+            updateCustomSummary();
+        }
+
+        function toggleTopping(id) {
+            const toppingObj = customToppings.find(t => t.id === id);
+            const index = selectedToppings.findIndex(t => t.id === id);
+            const btn = document.getElementById(`topping-${id}`);
+
+            if (index > -1) {
+                selectedToppings.splice(index, 1);
+                btn.className = 'custom-topping-btn p-3 rounded-xl border border-white/10 glass-card text-gray-300 text-xs font-semibold text-left transition-all';
+            } else {
+                selectedToppings.push(toppingObj);
+                btn.className = 'custom-topping-btn p-3 rounded-xl border border-brand-yellow bg-brand-yellow/20 text-white text-xs font-semibold text-left transition-all';
+            }
+            updateCustomSummary();
+        }
+
+        function updateCustomSummary() {
+            document.getElementById('summaryBase').innerText = selectedBase.name;
+            document.getElementById('summaryFlavors').innerText = selectedFlavors.length > 0 
+                ? selectedFlavors.map(f => f.name).join(', ') 
+                : 'None selected';
+            document.getElementById('summaryToppings').innerText = selectedToppings.length > 0 
+                ? selectedToppings.map(t => t.name).join(', ') 
+                : 'None selected';
+
+            const iceVal = document.getElementById('iceLevelSelect')?.value || 'Normal Ice';
+            const sweetVal = document.getElementById('sweetnessSelect')?.value || '100% Sweetness';
+            document.getElementById('summaryPrefs').innerText = `${iceVal} • ${sweetVal}`;
+
+            let price = selectedBase.price;
+            selectedFlavors.forEach(f => price += f.price);
+            selectedToppings.forEach(t => price += t.price);
+
+            document.getElementById('customPrice').innerText = `₹${price}`;
+        }
+
+        // Add DIY drink to Shopping Cart
+        function addCustomDrinkToCart() {
+            let price = selectedBase.price;
+            selectedFlavors.forEach(f => price += f.price);
+            selectedToppings.forEach(t => price += t.price);
+
+            const flavorNames = selectedFlavors.map(f => f.name).join(' + ');
+            const customTitle = `DIY Soda (${selectedBase.name}${flavorNames ? ' w/ ' + flavorNames : ''})`;
+
+            const customItem = {
+                id: 'custom-' + Date.now(),
+                name: customTitle,
+                price: price,
+                image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=400&q=80',
+                qty: 1
+            };
+
+            cart.push(customItem);
+            updateCartUI();
+            alertMessage('Custom Desi Soda added to Basket!');
+        }
+
+        function addToCart(menuId) {
+            const item = menuData.find(m => m.id === menuId);
+            const existing = cart.find(c => c.id === menuId);
+
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+
+            updateCartUI();
+            alertMessage(`${item.name} added to cart!`);
+        }
+
+        function updateCartQty(id, delta) {
+            const item = cart.find(c => c.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    cart = cart.filter(c => c.id !== id);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartContainer = document.getElementById('cartItems');
+            const cartBadge = document.getElementById('cartBadge');
+            
+            const totalCount = cart.reduce((acc, curr) => acc + curr.qty, 0);
+            
+            if (totalCount > 0) {
+                cartBadge.innerText = totalCount;
+                cartBadge.classList.remove('opacity-0');
+            } else {
+                cartBadge.classList.add('opacity-0');
+            }
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = `
+                    <div class="text-center py-12 text-gray-400 space-y-3">
+                        <i class="fa-solid fa-basket-shopping text-4xl text-gray-600"></i>
+                        <p class="font-bold text-base">Your Surat soda basket is empty!</p>
+                        <p class="text-xs">Add Jaljeera, Kala Khatta, or mix your own DIY Masala Soda.</p>
+                    </div>
+                `;
+            } else {
+                cartContainer.innerHTML = cart.map(item => `
+                    <div class="glass-card p-3 rounded-xl border border-white/10 flex items-center justify-between gap-3">
+                        <img src="${item.image}" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://placehold.co/100x100/171F32/00F0FF?text=Soda'">
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-xs font-bold text-white truncate">${item.name}</h4>
+                            <p class="text-xs text-brand-yellow font-bold">₹${item.price}</p>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-black/40 rounded-lg p-1 border border-white/5">
+                            <button onclick="updateCartQty('${item.id}', -1)" class="w-6 h-6 flex items-center justify-center text-xs text-gray-300 hover:text-white">-</button>
+                            <span class="text-xs font-bold text-white">${item.qty}</span>
+                            <button onclick="updateCartQty('${item.id}', 1)" class="w-6 h-6 flex items-center justify-center text-xs text-gray-300 hover:text-white">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Calculate Subtotal & Discount
+            let subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            let discount = discountVal;
+            let total = Math.max(0, subtotal - discount);
+
+            document.getElementById('subtotalPrice').innerText = `₹${subtotal}`;
+            document.getElementById('discountPrice').innerText = `-₹${discount}`;
+            document.getElementById('totalPrice').innerText = `₹${total}`;
+        }
+
+        function applyPromo() {
+            const input = document.getElementById('promoInput').value.trim().toUpperCase();
+            let subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            if (input === 'SURAT10') {
+                discountApplied = true;
+                discountVal = 10;
+                document.getElementById('discountRow').classList.remove('hidden');
+                updateCartUI();
+                alertMessage('₹10 Surat Promo Discount Applied!');
+            } else if (input === 'JDSODA') {
+                discountApplied = true;
+                discountVal = Math.round(subtotal * 0.15);
+                document.getElementById('discountRow').classList.remove('hidden');
+                updateCartUI();
+                alertMessage('15% Discount Applied to Basket!');
+            } else {
+                alertMessage('Invalid Code. Use SURAT10 or JDSODA!');
+            }
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cartDrawer');
+            const overlay = document.getElementById('cartOverlay');
+
+            drawer.classList.toggle('translate-x-full');
+            overlay.classList.toggle('opacity-0');
+            overlay.classList.toggle('pointer-events-none');
+        }
+
+        function openCheckoutModal() {
+            if (cart.length === 0) {
+                alertMessage('Add some sodas to your basket first!');
+                return;
+            }
+            toggleCart();
+            document.getElementById('checkoutModal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').classList.add('hidden');
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+            closeCheckoutModal();
+            cart = [];
+            discountApplied = false;
+            discountVal = 0;
+            document.getElementById('discountRow').classList.add('hidden');
+            updateCartUI();
+            alertMessage('🎉 Order Placed! Get ready for fresh fizzy refreshment in Surat!');
+        }
+
+        function claimLoyalty() {
+            const phone = document.getElementById('loyaltyPhone').value.trim();
+            if (!phone) {
+                alertMessage('Please enter a valid Surat phone number!');
+                return;
+            }
+            alertMessage(`Stamp card registered for ${phone}! Enjoy rewards at Vesu, Surat.`);
+        }
+
+        // Render Surat Testimonials
+        function renderReviews() {
+            const reviews = [
+                {
+                    name: 'Karan Shah (Vesu)',
+                    text: 'The Surti Kala Khatta Special with extra chat masala is absolute magic! Best soda spot on VIP Road.',
+                    rating: 5,
+                    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80'
+                },
+                {
+                    name: 'Pooja Patel (Ghod Dod Road)',
+                    text: 'Loved the Jaljeera and Kacha Aam sodas. Perfectly fizzy, icy cold, and super pocket-friendly!',
+                    rating: 5,
+                    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80'
+                },
+                {
+                    name: 'Rajesh Mehta (Adajan)',
+                    text: 'The DIY soda builder is super cool! Created my own Masala Thums Up with boondi & mint topping.',
+                    rating: 5,
+                    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80'
+                }
+            ];
+
+            const container = document.getElementById('reviewsContainer');
+            container.innerHTML = reviews.map(r => `
+                <div class="glass-card p-6 rounded-2xl border border-white/10 space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <img src="${r.avatar}" alt="${r.name}" class="w-12 h-12 rounded-full object-cover border border-brand-cyan/50" onerror="this.src='https://placehold.co/100x100/171F32/00F0FF?text=Surat+User'">
+                        <div>
+                            <h4 class="font-bold text-white text-sm">${r.name}</h4>
+                            <div class="text-brand-yellow text-xs">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-300 italic">"${r.text}"</p>
+                </div>
+            `).join('');
+        }
+
+        // Helper UI Toast Alert Notification
+        function alertMessage(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').innerText = msg;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 3000);
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
